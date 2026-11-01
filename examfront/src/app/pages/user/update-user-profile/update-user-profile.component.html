@@ -1,0 +1,55 @@
+<div class="bootstrap-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <mat-card>
+                    <mat-card-content>
+
+                <h1 class="text-center">Update Your Profile</h1>
+
+                <form *ngIf="user" #profileForm="ngForm" (ngSubmit)="updateData()">
+                    <div class="picture-picker text-center">
+                        <img [src]="picturePreview || (user.profile && user.profile !== 'default.png' ? user.profile : '../../../assets/logo.jpg')"
+                             class="profile-image" alt="Profile picture preview">
+                        <label for="profilePicture" class="picture-label">Choose profile picture</label>
+                        <input #pictureInput id="profilePicture" type="file" accept="image/jpeg,image/png,image/gif,image/webp"
+                               (change)="onPictureSelected($event)">
+                        <small>JPG, PNG, GIF, or WEBP. Maximum 5 MB.</small>
+                    </div>
+
+                    <mat-form-field class="full-width" appearance="outline">
+                        <mat-label>First Name</mat-label>
+                        <input matInput name="firstName" [(ngModel)]="user.firstName" required maxlength="100">
+                    </mat-form-field>
+
+                    <mat-form-field class="full-width" appearance="outline">
+                        <mat-label>Last Name</mat-label>
+                        <input matInput name="lastName" [(ngModel)]="user.lastName" required maxlength="100">
+                    </mat-form-field>
+
+                    <mat-form-field class="full-width" appearance="outline">
+                        <mat-label>Email Address</mat-label>
+                        <input matInput name="email" type="email" [(ngModel)]="user.email" required email maxlength="150">
+                    </mat-form-field>
+
+                    <mat-form-field class="full-width" appearance="outline">
+                        <mat-label>Mobile Number</mat-label>
+                        <input matInput name="phone" type="tel" [(ngModel)]="user.phone" required maxlength="25">
+                    </mat-form-field>
+
+                    <div class="container text-center">
+                        <button type="submit" mat-raised-button color="primary"
+                                [disabled]="profileForm.invalid || saving">
+                            {{ saving ? 'Saving...' : 'Update Profile' }}
+                        </button>
+                        <button type="button" class="ml20" mat-raised-button color="accent"
+                                [disabled]="saving" (click)="clearForm(pictureInput)">Clear</button>
+                    </div>
+                </form>
+            </mat-card-content>
+            </mat-card>
+            </div>
+        </div>
+    </div>
+</div>
+
